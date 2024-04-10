@@ -1,0 +1,38 @@
+﻿@model List<StudentRecordsMVC.Models.Domain.Student>
+@{
+}
+
+<h1>All Students Record</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th class="text-center">MatNo</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Gender</th>
+            <th>PhoneNumber</th>
+            <th>Department</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            var counter = 1; // Initialize counter variable
+        }
+        @foreach (var student in Model)
+        {
+            <tr>
+                <td>@counter</td> <!-- Display counter value -->
+                <td class="text-center">@student.MatNo</td>
+                <td>@student.Name</td>
+                <td>@student.Email</td>
+                <td>@student.Gender</td>
+                <td>@student.PhoneNumber</td>
+                <td>@student.Department</td>
+            </tr>
+            counter++; // Increment counter for each row
+        }
+    </tbody>
+</table>
+
