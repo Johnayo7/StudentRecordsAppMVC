@@ -1,10 +1,9 @@
 ﻿using StudentRecordsMVC.Models.Enums;
 
-namespace StudentRecordsMVC.Models.Domain
+namespace StudentRecordsMVC.Models.ViewModel
 {
-    public class Student
+    public class AddStudentVM
     {
-        public Guid MatNo { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
         public Gender Gender { get; set; }
@@ -12,6 +11,5 @@ namespace StudentRecordsMVC.Models.Domain
         public long PhoneNumber { get; set; }
         public string Faculty { get; set; }
         public string Department { get; set; }
-
     }
 }
