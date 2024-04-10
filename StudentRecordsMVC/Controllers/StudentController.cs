@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using StudentRecordsMVC.Context;
 using StudentRecordsMVC.Models.Domain;
 using StudentRecordsMVC.Models.ViewModel;
@@ -12,6 +13,13 @@ namespace StudentRecordsMVC.Controllers
         public StudentController(ApplicationContext context)
         {
             _context = context;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Index()
+        {
+            var allStudents = await _context.Students.ToListAsync();
+            return View(allStudents);
         }
 
         [HttpGet]
@@ -37,7 +45,7 @@ namespace StudentRecordsMVC.Controllers
 
             await _context.Students.AddAsync(newStudent);
             await _context.SaveChangesAsync();
-            return RedirectToAction("Add");
+            return RedirectToAction("Index");
 
         }
     }
