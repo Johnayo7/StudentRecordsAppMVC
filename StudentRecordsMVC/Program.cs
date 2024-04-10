@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using StudentRecordsMVC.Context;
+
 namespace StudentRecordsMVC
 {
     public class Program
@@ -8,6 +11,10 @@ namespace StudentRecordsMVC
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddDbContext<ApplicationContext>(options =>
+            options.UseSqlServer(builder.Configuration
+            .GetConnectionString("StudentRecordsConnectionString")));
+
 
             var app = builder.Build();
 
