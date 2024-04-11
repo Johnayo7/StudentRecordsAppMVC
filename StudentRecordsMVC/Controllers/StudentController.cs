@@ -89,6 +89,23 @@ namespace StudentRecordsMVC.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete (UpdateStudentRecordsVM recordToRemove)
+        {
+            var existingRecord = await _context.Students.FindAsync(recordToRemove.MatNo);
+
+            if (existingRecord != null)
+            {
+                 _context.Students.Remove(existingRecord);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction("Index");
+            }
+
             return RedirectToAction("Index");
         }
     }
