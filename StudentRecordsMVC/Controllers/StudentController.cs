@@ -110,7 +110,7 @@ namespace StudentRecordsMVC.Controllers
                 return View();
             }
 
-            
+
         }
 
         [HttpPost]
@@ -127,6 +127,29 @@ namespace StudentRecordsMVC.Controllers
             }
 
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Search(string searchQuery)
+        {
+            if (string.IsNullOrEmpty(searchQuery))
+            {
+                // If search query is empty, return all students
+                var allStudents = await _context.Students.ToListAsync();
+                return View("Index", allStudents);
+            }
+
+            searchQuery = $"%{searchQuery.ToLower()}%";
+
+            // Search students by MatNo, Name, or Email
+            var searchResults = await _context.Students
+                .Where(s =>
+                   EF.Functions.Like(s.MatNo.ToString(), searchQuery) ||
+                   EF.Functions.Like(s.Email, searchQuery) ||
+                   EF.Functions.Like(s.Name, searchQuery))
+                .ToListAsync();
+
+            return View(searchResults);
         }
     }
 }

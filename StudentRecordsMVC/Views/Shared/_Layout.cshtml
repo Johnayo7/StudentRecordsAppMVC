@@ -17,21 +17,38 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <div class="navbar-collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
+                        @* <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li> *@
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="Index" style="white-space: nowrap;">All Students</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="Index">All Students</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="Add">Add Student</a>
-                        </li>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="Add" style="white-space: nowrap;" >Add Student</a>
+                        </li>                      
                     </ul>
+                  </div>
+                    <!-- Search Form -->
+                   <div class="container">
+                        <div class="row justify-content-end">
+                            <div class="col-lg-8"> <!-- Adjust column size as needed -->
+                                <form method="get" asp-controller="Student" asp-action="Search" class="form-inline">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" name="searchQuery" style="width: 50%;" placeholder="Search by Name, Email or Matriculation Number...">
+                                        <div class="input-group-append">
+                                            <button type="submit" class="btn btn-primary">Search</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+               
                 </div>
             </div>
         </nav>
@@ -53,3 +70,5 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
+
