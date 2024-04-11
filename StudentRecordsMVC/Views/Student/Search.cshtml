@@ -1,7 +1,12 @@
-﻿@model List<StudentRecordsMVC.Models.Domain.Student>
+﻿@using X.PagedList
+@using X.PagedList.Mvc.Core
+@model IPagedList<StudentRecordsMVC.Models.Domain.Student>
 
 @{
     ViewData["Title"] = "Search Results";
+
+    //retrieve the search query from ViewBag and store it in a variable searchQuery
+    string searchQuery = ViewBag.SearchQuery ?? ""; 
 }
 
 <h1>Search Results</h1>
@@ -30,12 +35,13 @@
         </thead>
         <tbody>
             @{
-                var counter = 1; // Initialize counter variable
+                // Calculate the starting index for the current page
+                var counter = (Model.PageNumber - 1) * Model.PageSize + 1; 
             }
             @foreach (var student in Model)
             {
                     <tr>
-                        <td>@counter</td> <!-- Display counter value -->
+                         <td>@counter </td> <!-- Display counter value -->
                         <td class="text-center">@student.MatNo</td>
                         <td>@student.Name</td>
                         <td>@student.Email</td>
@@ -44,13 +50,19 @@
                         <td>@student.Department</td>
                         <td><a href="@Url.Action("View","Student", 
                             new { matNo = student.MatNo})">View</a></td>
-
                     </tr>
-                counter++; // Increment counter for each row
+                 // Increment counter for each row
+                counter++; 
             }
         </tbody>
     </table>
+
+    //include the searchQuery parameter along with the page number. 
+    //This ensures that the search query is retained when navigating to the next page
+    @Html.PagedListPager(Model, page => Url.Action("Search", new { searchQuery = searchQuery, page }),
+    new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded }) <!-- Render pagination controls -->
 }
+
 else
 {
         <p>No results found</p>
