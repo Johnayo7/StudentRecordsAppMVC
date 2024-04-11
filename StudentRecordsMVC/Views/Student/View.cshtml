@@ -1,12 +1,16 @@
-﻿@model StudentRecordsMVC.Models.ViewModel.AddStudentVM
+﻿@model StudentRecordsMVC.Models.ViewModel.UpdateStudentRecordsVM
 
 @{
-    ViewData["Title"] = "Add Student";
+    ViewData["Title"] = "Update Student Record";
 }
 
-<h1>Add Student</h1>
+<h1>Update Student Record</h1>
 
-<form method="post" action="Add" class="mt-5">
+<form method="post" action="View" class="mt-5">
+    <div class="mb-3">
+        <label for="" class="form-label">MatNo</label>
+        <input type="text" class="form-control" asp-for="MatNo" readonly>
+    </div>
     <div class="mb-3">
         <label for="" class="form-label">Name</label>
         <input type="text" class="form-control" asp-for="Name">
@@ -17,13 +21,13 @@
     </div>
     <div class="mb-1">
         <label for="gender" class="form-label">Gender</label>
-    </div>
+   </div>
     <div class="form-check form-check-inline mb-3">
-        <input class="form-check-input" type="radio" id="male" name="gender" value="Male">
+        <input class="form-check-input" type="radio" id="male" name="gender" value="Male" @(Model.Gender == StudentRecordsMVC.Models.Enums.Gender.Male ? "checked" : "")>
         <label class="form-check-label" for="male">Male</label>
     </div>
     <div class="form-check form-check-inline mb-3">
-        <input class="form-check-input" type="radio" id="female" name="gender" value="Female">
+        <input class="form-check-input" type="radio" id="female" name="gender" value="Female" @(Model.Gender == StudentRecordsMVC.Models.Enums.Gender.Female ? "checked" : "")>
         <label class="form-check-label" for="female">Female</label>
     </div>
     <div class="mb-3">
@@ -41,8 +45,6 @@
     <div class="mb-3">
         <label for="" class="form-label">Department</label>
         <input type="text" class="form-control" asp-for="Department">
-    </div>
-
     </div>
 
     <button type="submit" class="btn btn-primary">Submit</button>

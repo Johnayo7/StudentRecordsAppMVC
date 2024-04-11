@@ -1,5 +1,7 @@
 ﻿@model List<StudentRecordsMVC.Models.Domain.Student>
+
 @{
+    ViewData["Title"] = "All Students Record";
 }
 
 <h1>All Students Record</h1>
@@ -14,6 +16,7 @@
             <th>Gender</th>
             <th>PhoneNumber</th>
             <th>Department</th>
+            <th> </th>
         </tr>
     </thead>
     <tbody>
@@ -30,6 +33,10 @@
                 <td>@student.Gender</td>
                 <td>@student.PhoneNumber</td>
                 <td>@student.Department</td>
+@*                 <td><a href="Employees/View?matNo=@student.MatNo">View</a></td>
+ *@
+                <td><a href="@Url.Action("View","Student", new { matNo = student.MatNo})">View</a></td>
+
             </tr>
             counter++; // Increment counter for each row
         }
