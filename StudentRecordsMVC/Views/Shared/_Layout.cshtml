@@ -39,7 +39,7 @@
                             <div class="col-lg-8"> <!-- Adjust column size as needed -->
                                 <form method="get" asp-controller="Student" asp-action="Search" class="form-inline">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" name="searchQuery" style="width: 50%;" placeholder="Search by Name, Email or Matriculation Number...">
+                                        <input type="text" class="form-control" name="searchQuery" style="width: 50%;" placeholder="Search by Name, Email or Matriculation Number..." value="@ViewBag.SearchQuery">
                                         <div class="input-group-append">
                                             <button type="submit" class="btn btn-primary">Search</button>
                                         </div>

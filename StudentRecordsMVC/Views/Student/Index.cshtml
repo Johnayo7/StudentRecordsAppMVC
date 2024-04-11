@@ -1,4 +1,6 @@
-﻿@model List<StudentRecordsMVC.Models.Domain.Student>
+﻿@using X.PagedList
+@using X.PagedList.Mvc.Core
+@model IPagedList<StudentRecordsMVC.Models.Domain.Student>
 
 @{
     ViewData["Title"] = "All Students Record";
@@ -23,7 +25,7 @@
         </thead>
         <tbody>
             @{
-                var counter = 1; // Initialize counter variable
+                var counter = (Model.PageNumber - 1) * Model.PageSize + 1; // Calculate the starting index for the current page
             }
             @foreach (var student in Model)
             {
@@ -42,6 +44,9 @@
             }
         </tbody>
     </table>
+
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), 
+    new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded }) <!-- Render pagination controls -->
 }
 
 else

@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using StudentRecordsMVC.Context;
 using StudentRecordsMVC.Models.Domain;
 using StudentRecordsMVC.Models.ViewModel;
+using X.PagedList;
 
 namespace StudentRecordsMVC.Controllers
 {
@@ -16,9 +17,12 @@ namespace StudentRecordsMVC.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? page)
         {
-            var allStudents = await _context.Students.ToListAsync();
+            int pageNumber = page ?? 1; // Default to page 1 if no page number is specified
+            int pageSize = 10; // Number of items to display per page
+
+            var allStudents = await _context.Students.ToPagedListAsync(pageNumber, pageSize);
             return View(allStudents);
         }
 
@@ -130,13 +134,18 @@ namespace StudentRecordsMVC.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Search(string searchQuery)
+        public async Task<IActionResult> Search(string searchQuery, int? page)
         {
+            int pageNumber = page ?? 1; // Default to page 1 if no page number is specified
+            int pageSize = 10; // Number of items to display per page
+
+            ViewBag.SearchQuery = searchQuery; // Store the search query in ViewBag
+
             if (string.IsNullOrEmpty(searchQuery))
             {
                 // If search query is empty, return all students
-                var allStudents = await _context.Students.ToListAsync();
-                return View("Index", allStudents);
+                var allStudents = await _context.Students.ToPagedListAsync(pageNumber, pageSize);
+                return View();
             }
 
             searchQuery = $"%{searchQuery.ToLower()}%";
@@ -147,7 +156,7 @@ namespace StudentRecordsMVC.Controllers
                    EF.Functions.Like(s.MatNo.ToString(), searchQuery) ||
                    EF.Functions.Like(s.Email, searchQuery) ||
                    EF.Functions.Like(s.Name, searchQuery))
-                .ToListAsync();
+                .ToPagedListAsync(pageNumber, pageSize);
 
             return View(searchResults);
         }
