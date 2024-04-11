@@ -1,0 +1,57 @@
+﻿@model List<StudentRecordsMVC.Models.Domain.Student>
+
+@{
+    ViewData["Title"] = "Search Results";
+}
+
+<h1>Search Results</h1>
+
+@* <form asp-action="Search" method="get">
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Search by MatNo, Name, or Email" name="searchQuery">
+        <button class="btn btn-outline-secondary" type="submit">Search</button>
+    </div>
+</form> *@
+
+@if (Model != null && Model.Any())
+{
+            <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th class="text-center">MatNo</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Gender</th>
+                <th>PhoneNumber</th>
+                <th>Department</th>
+                <th> </th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                var counter = 1; // Initialize counter variable
+            }
+            @foreach (var student in Model)
+            {
+                    <tr>
+                        <td>@counter</td> <!-- Display counter value -->
+                        <td class="text-center">@student.MatNo</td>
+                        <td>@student.Name</td>
+                        <td>@student.Email</td>
+                        <td>@student.Gender</td>
+                        <td>@student.PhoneNumber</td>
+                        <td>@student.Department</td>
+                        <td><a href="@Url.Action("View","Student", 
+                            new { matNo = student.MatNo})">View</a></td>
+
+                    </tr>
+                counter++; // Increment counter for each row
+            }
+        </tbody>
+    </table>
+}
+else
+{
+        <p>No results found</p>
+}
