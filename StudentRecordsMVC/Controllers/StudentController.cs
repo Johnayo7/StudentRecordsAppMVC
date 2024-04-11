@@ -8,7 +8,7 @@ namespace StudentRecordsMVC.Controllers
 {
     public class StudentController : Controller
     {
-       private readonly ApplicationContext _context;
+        private readonly ApplicationContext _context;
 
         public StudentController(ApplicationContext context)
         {
@@ -31,22 +31,30 @@ namespace StudentRecordsMVC.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(AddStudentVM addStudentRequest)
         {
-            var newStudent = new Student()
+            if (ModelState.IsValid)
             {
-                MatNo = Guid.NewGuid(),
-                Name = addStudentRequest.Name,
-                Email = addStudentRequest.Email,
-                Gender = addStudentRequest.Gender,
-                DateOfBirth = addStudentRequest.DateOfBirth,
-                PhoneNumber = addStudentRequest.PhoneNumber,
-                Faculty = addStudentRequest.Faculty,
-                Department = addStudentRequest.Department,
-            };
+                var newStudent = new Student()
+                {
+                    MatNo = Guid.NewGuid(),
+                    Name = addStudentRequest.Name,
+                    Email = addStudentRequest.Email,
+                    Gender = addStudentRequest.Gender,
+                    DateOfBirth = addStudentRequest.DateOfBirth,
+                    PhoneNumber = addStudentRequest.PhoneNumber,
+                    Faculty = addStudentRequest.Faculty,
+                    Department = addStudentRequest.Department,
+                };
 
-            await _context.Students.AddAsync(newStudent);
-            await _context.SaveChangesAsync();
-            return RedirectToAction("Index");
+                await _context.Students.AddAsync(newStudent);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
 
+            else
+            {
+                // Validation failed, return to the form view with validation errors
+                return View(addStudentRequest);
+            }
         }
 
         [HttpGet]
@@ -67,7 +75,7 @@ namespace StudentRecordsMVC.Controllers
                     Faculty = existingStudent.Faculty,
                     Department = existingStudent.Department
                 };
-                return await Task.Run(()=>View("View", updateModel));
+                return await Task.Run(() => View("View", updateModel));
             }
             return RedirectToAction("Index");
         }
@@ -75,32 +83,44 @@ namespace StudentRecordsMVC.Controllers
         [HttpPost]
         public async Task<IActionResult> View(UpdateStudentRecordsVM updateModel)
         {
-            var existingRecord = await _context.Students.FindAsync(updateModel.MatNo);
-            if (existingRecord != null)
+            if (ModelState.IsValid)
             {
-                existingRecord.Name = updateModel.Name;
-                existingRecord.Email = updateModel.Email;
-                existingRecord.Gender = updateModel.Gender;
-                existingRecord.DateOfBirth = updateModel.DateOfBirth;
-                existingRecord.PhoneNumber = updateModel.PhoneNumber;
-                existingRecord.Faculty = updateModel.Faculty;
-                existingRecord.Department = updateModel.Department;
+                var existingRecord = await _context.Students.FindAsync(updateModel.MatNo);
 
-                await _context.SaveChangesAsync();
+                if (existingRecord != null)
+                {
+                    existingRecord.Name = updateModel.Name;
+                    existingRecord.Email = updateModel.Email;
+                    existingRecord.Gender = updateModel.Gender;
+                    existingRecord.DateOfBirth = updateModel.DateOfBirth;
+                    existingRecord.PhoneNumber = updateModel.PhoneNumber;
+                    existingRecord.Faculty = updateModel.Faculty;
+                    existingRecord.Department = updateModel.Department;
+
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
+
                 return RedirectToAction("Index");
             }
 
-            return RedirectToAction("Index");
+            else
+            {
+                // Validation failed, return to the form view with validation errors
+                return View();
+            }
+
+            
         }
 
         [HttpPost]
-        public async Task<IActionResult> Delete (UpdateStudentRecordsVM recordToRemove)
+        public async Task<IActionResult> Delete(UpdateStudentRecordsVM recordToRemove)
         {
             var existingRecord = await _context.Students.FindAsync(recordToRemove.MatNo);
 
             if (existingRecord != null)
             {
-                 _context.Students.Remove(existingRecord);
+                _context.Students.Remove(existingRecord);
                 await _context.SaveChangesAsync();
 
                 return RedirectToAction("Index");
