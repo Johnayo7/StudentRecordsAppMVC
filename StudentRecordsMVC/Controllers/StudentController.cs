@@ -48,5 +48,48 @@ namespace StudentRecordsMVC.Controllers
             return RedirectToAction("Index");
 
         }
+
+        [HttpGet]
+        public async Task<IActionResult> View(Guid matNo)
+        {
+            var existingStudent = await _context.Students.FindAsync(matNo);
+
+            if (existingStudent != null)
+            {
+                var updateModel = new UpdateStudentRecordsVM()
+                {
+                    MatNo = existingStudent.MatNo,
+                    Name = existingStudent.Name,
+                    Email = existingStudent.Email,
+                    Gender = existingStudent.Gender,
+                    DateOfBirth = existingStudent.DateOfBirth,
+                    PhoneNumber = existingStudent.PhoneNumber,
+                    Faculty = existingStudent.Faculty,
+                    Department = existingStudent.Department
+                };
+                return await Task.Run(()=>View("View", updateModel));
+            }
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> View(UpdateStudentRecordsVM updateModel)
+        {
+            var existingRecord = await _context.Students.FindAsync(updateModel.MatNo);
+            if (existingRecord != null)
+            {
+                existingRecord.Name = updateModel.Name;
+                existingRecord.Email = updateModel.Email;
+                existingRecord.Gender = updateModel.Gender;
+                existingRecord.DateOfBirth = updateModel.DateOfBirth;
+                existingRecord.PhoneNumber = updateModel.PhoneNumber;
+                existingRecord.Faculty = updateModel.Faculty;
+                existingRecord.Department = updateModel.Department;
+
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            return RedirectToAction("Index");
+        }
     }
 }
