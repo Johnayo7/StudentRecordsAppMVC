@@ -113,12 +113,10 @@ namespace StudentRecordsMVC.Controllers
                 // Validation failed, return to the form view with validation errors
                 return View();
             }
-
-
         }
 
         [HttpPost]
-        public async Task<IActionResult> Delete(UpdateStudentRecordsVM recordToRemove)
+        public async Task<IActionResult> Delete(UpdateStudentRecordsVM recordToRemove, string returnUrl)
         {
             var existingRecord = await _context.Students.FindAsync(recordToRemove.MatNo);
 
@@ -127,7 +125,16 @@ namespace StudentRecordsMVC.Controllers
                 _context.Students.Remove(existingRecord);
                 await _context.SaveChangesAsync();
 
-                return RedirectToAction("Index");
+                /*return RedirectToAction("Index");*/
+                if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+                {
+                    return Redirect(returnUrl);
+                }
+                else
+                {
+                    // If returnUrl is not provided or is not a local URL, redirect to a default page
+                    return RedirectToAction("Index", "Student");
+                }
             }
 
             return RedirectToAction("Index");

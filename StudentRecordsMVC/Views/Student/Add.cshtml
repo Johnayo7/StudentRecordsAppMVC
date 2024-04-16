@@ -1,4 +1,4 @@
-﻿@model StudentRecordsMVC.Models.ViewModel.AddStudentVM
+﻿@model AddStudentVM
 
 @{
     ViewData["Title"] = "Add Student";
@@ -7,51 +7,55 @@
 <h1>Add Student</h1>
 
 <form method="post" action="Add" class="mt-5">
+
     <div class="mb-3">
         <label for="" class="form-label">Name</label>
         <input type="text" class="form-control" asp-for="Name" required>
         <span asp-validation-for="Name" class="text-danger"></span>
     </div>
+
     <div class="mb-3">
         <label for="" class="form-label">Email Address</label>
         <input type="email" class="form-control" asp-for="Email" required>
         <span asp-validation-for="Email" class="text-danger"></span>
     </div>
+
     <div class="mb-1">
         <label for="gender" class="form-label">Gender</label>
-   <div>
+        <div>
+        </div>
+        <div class="form-check form-check-inline mb-3">
+            <input class="form-check-input" type="radio" id="male" name="gender" value="Male" required>
+            <label class="form-check-label" for="male">Male</label>
+        </div>
+        <div class="form-check form-check-inline mb-3">
+            <input class="form-check-input" type="radio" id="female" name="gender" value="Female">
+            <label class="form-check-label" for="female">Female</label>
+        </div><span asp-validation-for="Gender" class="text-danger"></span>
     </div>
-    <div class="form-check form-check-inline mb-3">
-        <input class="form-check-input" type="radio" id="male" name="gender" value="Male" required>
-        <label class="form-check-label" for="male">Male</label>
-    </div>
-    <div class="form-check form-check-inline mb-3">
-        <input class="form-check-input" type="radio" id="female" name="gender" value="Female">
-        <label class="form-check-label" for="female">Female</label>
-    </div><span asp-validation-for="Gender" class="text-danger"></span>
-   </div>
-    
+
     <div class="mb-3">
         <label for="" class="form-label">Date Of Birth</label>
         <input type="date" class="form-control" asp-for="DateOfBirth" required>
         <span asp-validation-for="DateOfBirth" class="text-danger"></span>
     </div>
+
     <div class="mb-3">
         <label for="" class="form-label">Phone Number</label>
         <input type="number" class="form-control" asp-for="PhoneNumber" required>
         <span asp-validation-for="PhoneNumber" class="text-danger"></span>
     </div>
+
     <div class="mb-3">
         <label for="" class="form-label">Faculty</label>
         <input type="text" class="form-control" asp-for="Faculty" required>
         <span asp-validation-for="Faculty" class="text-danger"></span>
     </div>
+
     <div class="mb-3">
         <label for="" class="form-label">Department</label>
         <input type="text" class="form-control" asp-for="Department" required>
         <span asp-validation-for="Department" class="text-danger"></span>
-    </div>
-
     </div>
 
     <button type="submit" class="btn btn-primary">Submit</button>

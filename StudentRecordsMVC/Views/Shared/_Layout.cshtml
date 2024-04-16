@@ -13,42 +13,49 @@
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">StudentRecords</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home"
+                               asp-action="Index">Home</a>
                         </li>
                         @* <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li> *@
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="Index" style="white-space: nowrap;">All Students</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Student"
+                               asp-action="Index" style="white-space: nowrap;">All Students</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="Add" style="white-space: nowrap;" >Add Student</a>
-                        </li>                      
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Student"
+                               asp-action="Add" style="white-space: nowrap;">Add Student</a>
+                        </li>
                     </ul>
-                  </div>
-                    <!-- Search Form -->
-                   <div class="container">
-                        <div class="row justify-content-end">
-                            <div class="col-lg-8"> <!-- Adjust column size as needed -->
-                                <form method="get" asp-controller="Student" asp-action="Search" class="form-inline">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" name="searchQuery" style="width: 50%;" placeholder="Search by Name, Email or Matriculation Number..." value="@ViewBag.SearchQuery">
-                                        <div class="input-group-append">
-                                            <button type="submit" class="btn btn-primary">Search</button>
-                                        </div>
+                </div>
+
+                <!-- Search Form -->
+                <div class="container">
+                    <div class="row justify-content-end">
+                        <div class="col-lg-8">
+                            <!-- Adjust column size as needed -->
+                            <form method="get" asp-controller="Student" asp-action="Search" class="form-inline">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="searchQuery"
+                                           style="width: 50%;"
+                                           placeholder="Search by Name, Email or Matriculation Number..."
+                                           value="@ViewBag.SearchQuery">
+                                    <div class="input-group-append">
+                                        <button type="submit" class="btn btn-primary">Search</button>
                                     </div>
-                                </form>
-                            </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
-               
                 </div>
             </div>
         </nav>
@@ -61,7 +68,8 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2024 - StudentRecords - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>  _johnOlayemi
+            &copy; 2024 - StudentRecords - <a asp-area="" asp-controller="Home" 
+            asp-action="Privacy">Privacy</a>  _johnOlayemi
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
