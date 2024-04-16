@@ -13,15 +13,12 @@ namespace StudentRecordsMVC.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Define primary key for the Student entity
             modelBuilder.Entity<Student>()
                 .HasKey(s => s.MatNo);
 
-            // Ensure MatNo is generated on add
             modelBuilder.Entity<Student>()
                 .Property(s => s.MatNo)
                 .ValueGeneratedOnAdd();
-
         }
     }
 }

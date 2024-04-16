@@ -20,7 +20,7 @@ namespace StudentRecordsMVC.Controllers
         public async Task<IActionResult> Index(int? page)
         {
             int pageNumber = page ?? 1; // Default to page 1 if no page number is specified
-            int pageSize = 10; // Number of items to display per page
+            int pageSize = 10; 
 
             var allStudents = await _context.Students.ToPagedListAsync(pageNumber, pageSize);
             return View(allStudents);
@@ -56,7 +56,6 @@ namespace StudentRecordsMVC.Controllers
 
             else
             {
-                // Validation failed, return to the form view with validation errors
                 return View(addStudentRequest);
             }
         }
@@ -110,7 +109,6 @@ namespace StudentRecordsMVC.Controllers
 
             else
             {
-                // Validation failed, return to the form view with validation errors
                 return View();
             }
         }
@@ -125,14 +123,12 @@ namespace StudentRecordsMVC.Controllers
                 _context.Students.Remove(existingRecord);
                 await _context.SaveChangesAsync();
 
-                /*return RedirectToAction("Index");*/
                 if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
                 {
                     return Redirect(returnUrl);
                 }
                 else
                 {
-                    // If returnUrl is not provided or is not a local URL, redirect to a default page
                     return RedirectToAction("Index", "Student");
                 }
             }
@@ -144,13 +140,12 @@ namespace StudentRecordsMVC.Controllers
         public async Task<IActionResult> Search(string searchQuery, int? page)
         {
             int pageNumber = page ?? 1; // Default to page 1 if no page number is specified
-            int pageSize = 10; // Number of items to display per page
+            int pageSize = 10; 
 
             ViewBag.SearchQuery = searchQuery; // Store the search query in ViewBag
 
             if (string.IsNullOrEmpty(searchQuery))
             {
-                // If search query is empty, return all students
                 var allStudents = await _context.Students.ToPagedListAsync(pageNumber, pageSize);
                 return View();
             }
