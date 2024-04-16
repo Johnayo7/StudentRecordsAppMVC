@@ -25,14 +25,13 @@
         </thead>
 
         <tbody>
-            @{
-                // Calculate the starting index for the current page
+            @{               
                 var counter = (Model.PageNumber - 1) * Model.PageSize + 1; 
             }
             @foreach (var student in Model)
             {
                 <tr>
-                    <td>@counter</td> <!-- Display counter value -->
+                    <td>@counter</td> 
                     <td class="text-center">@student.MatNo</td>
                     <td>@student.Name</td>
                     <td>@student.Email</td>
@@ -43,13 +42,13 @@
                         new { matNo = student.MatNo})">View</a></td>
                 </tr>
 
-                counter++; // Increment counter for each row
+                counter++; 
             }
         </tbody>
     </table>
 
     @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), 
-    new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded }) <!-- Render pagination controls -->
+    new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded })
 }
 
 else
