@@ -1,9 +1,8 @@
-﻿@using StudentRecordsMVC.Models.Domain
-@model StudentRecordsMVC.Models.ViewModel.UpdateStudentRecordsVM
+﻿@model UpdateStudentRecordsVM
 
 @{
     ViewData["Title"] = "Update Student Record";
-    //var deleteUrl = Url.Action("Delete", "Student", new { matNo = Student.MatNo });
+    string deleteUrl = Url.Action("Delete", "Student");
 }
 
 <script src="~/js/lockInput.js"></script>
@@ -17,20 +16,26 @@
         <label for="" class="form-label">MatNo</label>
         <input type="text" class="form-control" asp-for="MatNo" readonly>
     </div>
+
     <div class="mb-3">
         <label for="nameInput" class="form-label">Name</label>
         <input id="nameInput" type="text" class="form-control" asp-for="Name" readonly required>
         <span asp-validation-for="Name" class="text-danger"></span>
-        <button id="nameLockButton" type="button" onclick="toggleLock('nameInput', 'nameLockButton')">🔒</button>
+        <button id="nameLockButton" type="button" 
+            onclick="toggleLock('nameInput', 'nameLockButton')">🔒</button>
     </div>
+
     <div class="mb-3">
         <label for="emailInput" class="form-label">Email Address</label>
         <input id="emailInput" type="email" class="form-control" asp-for="Email" readonly required>
         <span asp-validation-for="Email" class="text-danger"></span>
-        <button id="emailLockButton" type="button" onclick="toggleLock('emailInput', 'emailLockButton')">🔒</button>
+        <button id="emailLockButton" type="button" 
+            onclick="toggleLock('emailInput', 'emailLockButton')">🔒</button>
     </div>
+
     <div class="mb-1">
         <label for="gender" class="form-label">Gender</label>
+        <span asp-validation-for="Gender" class="text-danger"></span>
     </div>
     <div class="form-check form-check-inline mb-3">
         <input class="form-check-input" type="radio" id="male" name="gender"
@@ -44,41 +49,52 @@
         @(Model != null && Model.Gender == StudentRecordsMVC.Models.Enums.Gender.Female ? "checked" : "")>
         <label class="form-check-label" for="female">Female</label>
         <button id="genderLockButton" type="button" onclick="toggleGenderLock()">🔒</button>
+        <input type="hidden" asp-for="Gender" id="genderHidden" />
     </div>
-    <span asp-validation-for="Gender" class="text-danger"></span>
+
     <div class="mb-3">
         <label for="dateOfBirthInput" class="form-label">Date Of Birth</label>
-        <input id="dateOfBirthInput" type="date" class="form-control" asp-for="DateOfBirth" readonly required>
+        <input id="dateOfBirthInput" type="date" class="form-control" 
+        asp-for="DateOfBirth" readonly required>
         <span asp-validation-for="DateOfBirth" class="text-danger"></span>
-        <button id="dateOfBirthLockButton" type="button" onclick="toggleLock('dateOfBirthInput', 'dateOfBirthLockButton')">🔒</button>
+        <button id="dateOfBirthLockButton" type="button" 
+            onclick="toggleLock('dateOfBirthInput', 'dateOfBirthLockButton')">🔒</button>
     </div>
+
     <div class="mb-3">
         <label for="phoneNumberInput" class="form-label">Phone Number</label>
-        <input id="phoneNumberInput" type="number" class="form-control" asp-for="PhoneNumber" readonly required>
+        <input id="phoneNumberInput" type="number" class="form-control" 
+        asp-for="PhoneNumber" readonly required>
         <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-        <button id="phoneNumberLockButton" type="button" onclick="toggleLock('phoneNumberInput', 'phoneNumberLockButton')">🔒</button>
+        <button id="phoneNumberLockButton" type="button" 
+            onclick="toggleLock('phoneNumberInput', 'phoneNumberLockButton')">🔒</button>
     </div>
+
     <div class="mb-3">
         <label for="facultyInput" class="form-label">Faculty</label>
         <input id="facultyInput" type="text" class="form-control" asp-for="Faculty" readonly required>
         <span asp-validation-for="Faculty" class="text-danger"></span>
-        <button id="facultyLockButton" type="button" onclick="toggleLock('facultyInput', 'facultyLockButton')">🔒</button>
+        <button id="facultyLockButton" type="button" 
+            onclick="toggleLock('facultyInput', 'facultyLockButton')">🔒</button>
     </div>
+
     <div class="mb-3">
         <label for="departmentInput" class="form-label">Department</label>
         <input id="departmentInput" type="text" class="form-control" asp-for="Department" readonly required>
         <span asp-validation-for="Department" class="text-danger"></span>
-        <button id="departmentLockButton" type="button" onclick="toggleLock('departmentInput', 'departmentLockButton')">🔒</button>
+        <button id="departmentLockButton" type="button" 
+            onclick="toggleLock('departmentInput', 'departmentLockButton')">🔒</button>
     </div>
 
     <button type="submit" class="btn btn-primary">Submit</button>
 
-    <button type="submit" class="btn btn-danger"
-            asp-action="Delete"
-            asp-controller="Student">
-        Delete
-    </button>
+    @*  <button type="submit" class="btn btn-danger"
+    asp-action="Delete"
+    asp-controller="Student">
+    Delete
+    </button> *@
 
-   @*  <button type="button" class="btn btn-danger" onclick="confirmDelete('@deleteUrl')">Delete</button >*@
+    <button type="button" class="btn btn-danger" 
+    onclick="confirmDelete('@Html.Raw(deleteUrl)')">Delete</button>
 
 </form>
